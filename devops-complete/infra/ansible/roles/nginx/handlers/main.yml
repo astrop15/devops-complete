@@ -1,0 +1,5 @@
+---
+- name: restart nginx
+  shell: "pkill nginx || true && nginx -g 'daemon off;' &"
+  async: 10
+  poll: 0

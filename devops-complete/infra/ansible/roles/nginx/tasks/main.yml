@@ -1,0 +1,23 @@
+---
+- name: Installer Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Créer le répertoire web
+  file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+
+- name: Configurer le site
+  template:
+    src: default.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: Déployer la page d'accueil
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
